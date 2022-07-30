@@ -1,0 +1,89 @@
+<nav class="navbar navbar-dark bg-dark justify-content-between px-5">
+  <a class="navbar-brand">
+    <h3>
+      <img src="assets/images/younees.png" alt="Younes" class=' ' style='width: 50px'>
+      Home
+    </h3>
+  </a>
+  <form class="form-inline ">
+    <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search"
+      [(ngModel)]="search">
+  </form>
+  <a href="#" (click)="addProduct()" class="dashboard-nav-item my-2 pull-right btn btn-success" translate><i
+      class="fas fa-sign-out-alt"></i> Add Product </a>
+  <a href="#" (click)="logout()" class="dashboard-nav-item my-2 pull-right btn btn-danger" translate><i
+      class="fas fa-sign-out-alt"></i> Logout </a>
+</nav>
+
+<div class="container" *ngIf="!isLoading">
+  <div class="row mt-5" *ngIf="parent_id">
+    <div class="col-md-12">
+      <a href="#" (click)="goBack()" class="btn btn-primary">
+        <i class="fa fa-arrow-left"></i> Back
+      </a>
+    </div>
+  </div>
+  <div class="shell">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-3" *ngFor="let item of galleryItems |filter:search">
+          <div class="wsk-cp-product" *ngIf="item.type == 'file'">
+            <div class="wsk-cp-img">
+              <img src="{{item.image}}" alt="Product" class="img-responsive" style="
+            max-height: 250px;
+            object-fit: cover;" />
+            </div>
+            <div class="wsk-cp-text">
+
+              <div class="title-product">
+                <h3>{{item.name}}</h3>
+              </div>
+              <div class="description-prod">
+                <div *ngIf="item.quantity < 1">
+                  <div class="alert alert-danger"> Out of stock!</div>
+                </div>
+                <p>{{item.description}}</p>
+              </div>
+              <div class="card-footer">
+                <div class="wcf-left"><span class="price">Price: {{item.price}}</span></div>
+                <div class="wcf-right">
+                  <a (click)="openDeleteConfirmation(item.id)" class="buy-btn">
+                    <i class="fa fa-trash" style="font-size: 21px!important;"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wsk-cp-product" *ngIf="item.type == 'folder'" (click)="folderClicked(item.id)">
+            <div class="wsk-cp-img">
+              <img src="assets/images/folder-icon.png" alt="Product" class="img-responsive" style="
+            max-height: 250px;
+            object-fit: cover;" />
+            </div>
+            <div class="wsk-cp-text">
+              <div class="title-product">
+                <h3>{{item.name}}</h3>
+              </div>
+              <div class="description-prod">
+              </div>
+              <div class="card-footer">
+                <div class="wcf-right">
+                  <a (click)="openDeleteConfirmation(item.id)" class="buy-btn">
+                    <i class="fa fa-trash" style="font-size: 21px!important;"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center mt-5 pt-5" *ngIf="isLoading">
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>

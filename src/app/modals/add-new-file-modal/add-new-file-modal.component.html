@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add Item</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" name="name" id="name" [(ngModel)]="data.name" />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" name="description" [(ngModel)]="data.description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input type="number" class="form-control" id="price" name="price" [(ngModel)]="data.price" />
+    </div>
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input type="file" class="form-control" name="image" id="image" (change)="uploadImage($event)" />
+    </div>
+  </form>
+
+
+</div>
+<div class="modal-footer">
+
+  <button type="submit" class="btn btn-primary" [disabled]="isStoreLoading" (click)="submitData()">
+    <span *ngIf="isStoreLoading">
+      <img src="assets/gifs/loading.gif" alt="Loading..." />
+    </span>
+    <span *ngIf="!isStoreLoading">
+      Store
+    </span>
+  </button>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss(false)">Close</button>
+</div>
